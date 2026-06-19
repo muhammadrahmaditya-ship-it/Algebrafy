@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Algebrify",
+  "description": "Platform pembelajaran aljabar interaktif yang bersih, modern, dan responsif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

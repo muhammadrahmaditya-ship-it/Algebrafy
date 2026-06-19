@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Ceria / Joyful Color Palette */
+  --color-joy-yellow: #fcd34d; /* amber-300 */
+  --color-joy-orange: #fb923c; /* orange-400 */
+  --color-joy-coral: #fb7185; /* rose-400 */
+  --color-joy-mint: #34d399; /* emerald-400 */
+  --color-joy-bg: #fffbf0; /* warm off-white */
+}
+
+/* Custom micro animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+#alg-header-badge {
+  animation: pulse 3s infinite ease-in-out;
+}
