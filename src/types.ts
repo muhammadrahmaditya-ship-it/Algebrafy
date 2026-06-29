@@ -27,7 +27,10 @@ export interface VideoItem {
   duration: string;
   instructor: string;
   thumbnailClass: string; // Tailwind class for background gradients
-  videoIdPlaceholder: string; // Helper for modal simulation
+  videoIdPlaceholder: string; // Helper for modal simulation (YouTube id)
+  thumbnailUrl?: string; // Optional custom thumbnail (for non-YouTube embeds)
+  externalUrl?: string; // Optional external/embed URL (e.g., Lumi)
+  embedType?: "youtube" | "lumi"; // Which embed player to use
   views: string;
   rating: number;
 }
