@@ -8,6 +8,7 @@ import TentangTab from "./components/TentangTab";
 import VideoModal from "./components/VideoModal";
 import { VideoItem } from "./types";
 import { Sparkles, Github, Heart, Gamepad2 } from "lucide-react";
+import LumiPlayer from "./components/LumiPlayer";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<"game" | "video" | "tentang">("game");
@@ -76,6 +77,12 @@ export default function App() {
           
           {/* Navigation Tabs bar */}
           <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+
+          {/* Contoh embed Lumi */}
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold mb-3">Contoh Video</h2>
+            <LumiPlayer runId="ztxexD" />
+          </div>
 
           {/* Dynamic Tab Panel Area */}
           <div className="mt-2 sm:mt-4">
