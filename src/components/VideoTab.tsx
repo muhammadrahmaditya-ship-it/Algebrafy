@@ -43,7 +43,11 @@ export default function VideoTab({ onWatchVideo }: VideoTabProps) {
             <div
               key={category.id}
               id={`video-category-${category.id}`}
-              className={`group bg-white rounded-[2.5rem] border-2 transition-all duration-300 overflow-hidden ${isExpanded ? "border-joy-mint/60 shadow-[0_12px_24px_-8px_rgba(16,185,129,0.3)] ring-4 ring-joy-mint/20 scale-[1.01]" : "border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-joy-mint/80"}`}
+              className={`group bg-white rounded-[2.5rem] border-2 transition-all duration-300 overflow-hidden ${
+                isExpanded
+                  ? "border-joy-mint/60 shadow-[0_12px_24px_-8px_rgba(16,185,129,0.3)]"
+                  : "border-slate-100"
+              }`}
             >
               {/* Accordion Header */}
               <button
@@ -67,9 +71,13 @@ export default function VideoTab({ onWatchVideo }: VideoTabProps) {
                 </div>
 
                 {/* Arrow Icon */}
-                <div className={`p-2.5 rounded-2xl transition-all duration-300 flex-shrink-0 ${
-                  isExpanded ? "rotate-180 bg-joy-mint text-white shadow-inner" : "bg-slate-100 text-slate-400 group-hover:bg-joy-yellow group-hover:text-joy-orange shadow-sm"
-                }`}>
+                <div
+                  className={`p-2.5 rounded-2xl transition-all duration-300 flex-shrink-0 ${
+                    isExpanded
+                      ? "rotate-180 bg-joy-mint text-white shadow-inner"
+                      : "bg-slate-100 text-slate-400 group-hover:bg-joy-yellow group-hover:text-joy-orange shadow-sm"
+                  }`}
+                >
                   <ChevronDown className="w-5 h-5 transition-transform duration-300 font-bold" />
                 </div>
               </button>
@@ -89,21 +97,27 @@ export default function VideoTab({ onWatchVideo }: VideoTabProps) {
                         {category.videos.map((vid: VideoItem) => (
                           <div
                             key={vid.id}
-                            className="bg-white rounded-[1.75rem] border-2 border-slate-100 hover:border-joy-mint/50 shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(16,185,129,0.25)] transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col justify-between"
+                            className="bg-white rounded-[1.75rem] border-2 border-slate-100 hover:border-joy-mint/50 shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(16,185,129,0.25)] transition-all duration-200 overflow-hidden flex flex-col"
                           >
                             {/* Card Video Header Preview/Thumbnail */}
                             <div className="relative aspect-video w-full overflow-hidden group/thumb cursor-pointer">
                               {/* Thumbnail Image Base */}
                               <div className="absolute inset-0 bg-slate-100 flex items-center justify-center overflow-hidden">
                                 <img
-                                  src={`https://img.youtube.com/vi/${vid.videoIdPlaceholder}/hqdefault.jpg`}
+                                  src={
+                                    vid.thumbnailUrl
+                                      ? vid.thumbnailUrl
+                                      : vid.videoIdPlaceholder
+                                      ? `https://img.youtube.com/vi/${vid.videoIdPlaceholder}/hqdefault.jpg`
+                                      : "/placeholder.jpg"
+                                  }
                                   alt={vid.title}
                                   className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-slate-900/20 group-hover/thumb:bg-slate-900/40 transition-colors duration-300" />
-                                
+
                                 {/* Inner Play Overlay circle */}
-                                <div className="absolute w-12 h-12 rounded-full bg-white/95 backdrop-blur-sm shadow-[0_8px_16px_rgba(0,0,0,0.3)] flex items-center justify-center group-hover/thumb:scale-110 transition-transform duration-300 z-10">
+                                <div className="absolute w-12 h-12 rounded-full bg-white/95 backdrop-blur-sm shadow-[0_8px_16px_rgba(0,0,0,0.3)] flex items-center justify-center transition-transform duration-200">
                                   <Play className="w-5 h-5 fill-joy-coral text-joy-coral ml-0.5" />
                                 </div>
                               </div>
@@ -115,7 +129,7 @@ export default function VideoTab({ onWatchVideo }: VideoTabProps) {
                               </span>
 
                               {/* Instructor Badge overlay */}
-                              <span className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-xs text-slate-800 text-[10px] font-medium border border-slate-200/50">
+                              <span className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-xs text-slate-800 text-[10px] font-medium">
                                 <User className="w-3 h-3 text-indigo-500" />
                                 {vid.instructor}
                               </span>
@@ -142,15 +156,28 @@ export default function VideoTab({ onWatchVideo }: VideoTabProps) {
                                 </div>
                               </div>
 
-                              {/* Watch Button */}
-                              <button
-                                type="button"
-                                onClick={() => onWatchVideo(vid)}
-                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-joy-coral hover:bg-rose-500 text-white text-sm font-bold rounded-2xl shadow-md hover:shadow-[0_8px_16px_-4px_rgba(244,63,94,0.4)] transition-all duration-300 cursor-pointer mt-2"
-                              >
-                                <Play className="w-4 h-4 fill-white" />
-                                Tonton Seru
-                              </button>
+                              {/* Watch Button + External Link */}
+                              <div className="mt-3 flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => onWatchVideo(vid)}
+                                  className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-joy-coral hover:bg-rose-500 text-white text-sm font-bold rounded-2xl shadow-md"
+                                >
+                                  <Play className="w-4 h-4 fill-white" />
+                                  Tonton Seru
+                                </button>
+
+                                {vid.externalUrl && (
+                                  <a
+                                    href={vid.externalUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-4 py-3 border border-slate-100 rounded-2xl text-sm text-slate-700 hover:bg-slate-50"
+                                  >
+                                    Buka di Lumi
+                                  </a>
+                                )}
+                              </div>
                             </div>
                           </div>
                         ))}
